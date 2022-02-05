@@ -13,4 +13,6 @@ contract ETHPool {
   function depositFunds() public {}
 
   function depositRewards() public {}
+
+  function withdrawFunds() public {}
 }
