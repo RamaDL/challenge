@@ -13,11 +13,18 @@ contract("ETHPoolContract deploy", accounts => {
 
 });
 
-describe("Initial ETHPool contract state", () => {
-  it("Should have 'name'", async () => {
+describe("ETHPool inital state", () => {
+  it("Should have ETH Pool name as initial state", async () => {
     const ethpool = await ETHPoolContract.deployed();
     const expected = "ETH Pool";
     const actual = await ethpool.name();
     assert.equal(actual, expected, "ETH Pool");
   });
 });
+
+describe("ETHPool depositFunds", () => {
+  it("Should have 'deposit' method", async () => {
+    const ethpool = await ETHPoolContract.deployed();
+    const actual = await ethpool.deposit();
+  })
+})
