@@ -14,7 +14,7 @@ contract("ETHPoolContract deploy", accounts => {
 });
 
 describe("Initial ETHPool contract state", () => {
-  it("Should have 'name' specified at the constructor ", async () => {
+  it("Should have 'name'", async () => {
     const ethpool = await ETHPoolContract.deployed();
     const expected = "ETH Pool";
     const actual = await ethpool.name();
