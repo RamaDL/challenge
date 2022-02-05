@@ -25,6 +25,13 @@ describe("ETHPool inital state", () => {
 describe("ETHPool depositFunds", () => {
   it("Should have 'deposit' method", async () => {
     const ethpool = await ETHPoolContract.deployed();
-    const actual = await ethpool.deposit();
+    const actual = await ethpool.depositFunds();
+  })
+})
+
+describe("ETHPool depositRewards", () => {
+  it("Should have 'deposit' method", async () => {
+    const ethpool = await ETHPoolContract.deployed();
+    const actual = await ethpool.depositRewards();
   })
 })

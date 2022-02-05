@@ -10,5 +10,5 @@ contract ETHPool {
     name = "ETH Pool";
   }
 
-  function deposit() public {}
+  function depositFunds() public {}
 }
