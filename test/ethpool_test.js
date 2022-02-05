@@ -35,3 +35,10 @@ describe("ETHPool depositRewards", () => {
     const actual = await ethpool.depositRewards();
   })
 })
+
+describe("ETHPool withdrawFunds", () => {
+  it("Should have 'deposit' method", async () => {
+    const ethpool = await ETHPoolContract.deployed();
+    const actual = await ethpool.withdrawFunds();
+  })
+})
