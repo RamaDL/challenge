@@ -25,20 +25,27 @@ describe("ETHPool inital state", () => {
 describe("ETHPool depositFunds", () => {
   it("Should have 'deposit' method", async () => {
     const ethpool = await ETHPoolContract.deployed();
-    const actual = await ethpool.depositFunds();
+    const depositFunds = await ethpool.depositFunds();
   })
 })
 
 describe("ETHPool depositRewards", () => {
   it("Should have 'deposit' method", async () => {
     const ethpool = await ETHPoolContract.deployed();
-    const actual = await ethpool.depositRewards();
+    const depositRewards = await ethpool.depositRewards();
   })
 })
 
 describe("ETHPool withdrawFunds", () => {
   it("Should have 'deposit' method", async () => {
     const ethpool = await ETHPoolContract.deployed();
-    const actual = await ethpool.withdrawFunds();
+    const withdrawFunds = await ethpool.withdrawFunds();
+  })
+})
+
+describe("ETHPool is Ownable", () => {
+  it("Should have owner", async () => {
+    const ethpool = await ETHPoolContract.deployed();
+    const owner = await ethpool.owner();
   })
 })
