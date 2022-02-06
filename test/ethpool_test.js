@@ -6,11 +6,13 @@ const ETHPoolContract = artifacts.require("ETHPool");
  * See docs: https://www.trufflesuite.com/docs/truffle/testing/writing-tests-in-javascript
  */
 contract("ETHPoolContract deploy", accounts => {
+
   it("should assert true", async () => {
     await ETHPoolContract.deployed();
     return assert.isTrue(true);
   });
-  it("Owner should match deployer address", async () => {
+
+  it("Owner should match deployer account", async () => {
     const ethpool = await ETHPoolContract.deployed();
     const owner = await ethpool.owner();
     assert.equal(owner, accounts[0])
