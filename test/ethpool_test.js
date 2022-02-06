@@ -67,7 +67,15 @@ describe('ETHPool depositRewards onlyOwner', () => {
   });
 
   it("Non owners shouldn't be able to add rewards", async () => {
+    try{
       const res = await ethpool.depositRewards({ from: accountsGlobal[1] });
-      assert.isTrue(res.data.stack.includes("revert"))
+      console.log(res)
+    }catch(error){
+      assert.isTrue(error.data.stack.includes("revert"))
+    }
+  })
+  
+  it('Owner should be able to add rewards', async () => {
+    await ethpool.depositRewards({ from: accountsGlobal[0] }); 
   })
 })
