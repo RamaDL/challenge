@@ -5,18 +5,15 @@ const ETHPoolContract = artifacts.require("ETHPool");
  * Ethereum client
  * See docs: https://www.trufflesuite.com/docs/truffle/testing/writing-tests-in-javascript
  */
-contract("ETHPoolContract deploy", accounts => {
 
+let accountsGlobal;
+
+contract("ETHPoolContract deploy", accounts => {
+  accountsGlobal = accounts;
   it("should assert true", async () => {
     await ETHPoolContract.deployed();
     return assert.isTrue(true);
   });
-
-  it("Owner should match deployer account", async () => {
-    const ethpool = await ETHPoolContract.deployed();
-    const owner = await ethpool.owner();
-    assert.equal(owner, accounts[0])
-  })
 });
 
 describe("ETHPool inital state", () => {
@@ -53,5 +50,24 @@ describe("ETHPool is Ownable", () => {
   it("Should have owner", async () => {
     const ethpool = await ETHPoolContract.deployed();
     const owner = await ethpool.owner();
+  })
+})
+
+describe("ETHPool owner account", () => {
+  it("Owner should match deployer account", async () => {
+    const ethpool = await ETHPoolContract.deployed();
+    const owner = await ethpool.owner();
+    assert.equal(owner, accountsGlobal[0])
+  })
+})
+
+describe('ETHPool depositRewards onlyOwner', () => {
+  beforeEach(async () => {
+    ethpool = await ETHPoolContract.deployed();
+  });
+
+  it("Non owners shouldn't be able to add rewards", async () => {
+      const res = await ethpool.depositRewards({ from: accountsGlobal[1] });
+      assert.isTrue(res.data.stack.includes("revert"))
   })
 })
