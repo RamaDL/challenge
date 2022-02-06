@@ -13,7 +13,7 @@ contract ETHPool is Ownable{
 
   function depositFunds() public {}
 
-  function depositRewards() public {}
+  function depositRewards() public onlyOwner {}
 
   function withdrawFunds() public {}
 }
