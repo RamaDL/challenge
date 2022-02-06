@@ -10,7 +10,11 @@ contract("ETHPoolContract deploy", accounts => {
     await ETHPoolContract.deployed();
     return assert.isTrue(true);
   });
-
+  it("Owner should match deployer address", async () => {
+    const ethpool = await ETHPoolContract.deployed();
+    const owner = await ethpool.owner();
+    assert.equal(owner, accounts[0])
+  })
 });
 
 describe("ETHPool inital state", () => {
