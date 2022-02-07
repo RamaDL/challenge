@@ -1,5 +1,6 @@
 const ETHPoolContract = artifacts.require("ETHPool");
 
+
 /*
  * uncomment accounts to access the test accounts made available by the
  * Ethereum client
@@ -9,7 +10,10 @@ const ETHPoolContract = artifacts.require("ETHPool");
 let accountsGlobal;
 
 contract("ETHPoolContract deploy", accounts => {
-  accountsGlobal = accounts;
+  console.log("assert: ", assert)
+  before("should set accountsGlobal", () => {
+    accountsGlobal = accounts;
+  });
   it("should assert true", async () => {
     await ETHPoolContract.deployed();
     return assert.isTrue(true);
@@ -26,21 +30,21 @@ describe("ETHPool inital state", () => {
 });
 
 describe("ETHPool depositFunds", () => {
-  it("Should have 'deposit' method", async () => {
+  it("Should have 'depositFunds' method", async () => {
     const ethpool = await ETHPoolContract.deployed();
     const depositFunds = await ethpool.depositFunds();
   })
 })
 
 describe("ETHPool depositRewards", () => {
-  it("Should have 'deposit' method", async () => {
+  it("Should have 'depositRewards' method", async () => {
     const ethpool = await ETHPoolContract.deployed();
     const depositRewards = await ethpool.depositRewards();
   })
 })
 
 describe("ETHPool withdrawFunds", () => {
-  it("Should have 'deposit' method", async () => {
+  it("Should have 'withdrawFunds' method", async () => {
     const ethpool = await ETHPoolContract.deployed();
     const withdrawFunds = await ethpool.withdrawFunds();
   })
