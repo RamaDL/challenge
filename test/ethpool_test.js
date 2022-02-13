@@ -1,4 +1,5 @@
 const ETHPoolContract = artifacts.require("ETHPool");
+const { assert } = require('chai');
 const truffleAssert = require('truffle-assertions');
 
 /*
@@ -20,7 +21,7 @@ contract("ETHPoolContract deploy", accounts => {
   it("Should have ETH Pool name as initial state.", async () => {
     const expected = "ETH Pool";
     const actual = await ethPoolInstance.name();
-    assert.equal(actual, expected, "ETH Pool");
+    assert.equal(actual, expected, "contract name should match.");
   });
 
   it("Should have 'depositFunds' method.", async () => {
