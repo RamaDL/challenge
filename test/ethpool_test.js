@@ -1,5 +1,5 @@
 const ETHPoolContract = artifacts.require("ETHPool");
-
+const truffleAssert = require('truffle-assertions');
 
 /*
  * uncomment accounts to access the test accounts made available by the
