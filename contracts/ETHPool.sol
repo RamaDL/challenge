@@ -1,7 +1,8 @@
 // SPDX-License-Identifier: MIT
 pragma solidity >=0.4.22 <0.9.0;
+import "./Ownable.sol";
 
-contract ETHPool {
+contract ETHPool is Ownable{
 
   // Contract name
   string public name; 
@@ -12,7 +13,7 @@ contract ETHPool {
 
   function depositFunds() public {}
 
-  function depositRewards() public {}
+  function depositRewards() public onlyOwner {}
 
   function withdrawFunds() public {}
 }
