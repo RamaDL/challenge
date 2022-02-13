@@ -7,79 +7,48 @@ const truffleAssert = require('truffle-assertions');
  * See docs: https://www.trufflesuite.com/docs/truffle/testing/writing-tests-in-javascript
  */
 
-let accountsGlobal;
-
 contract("ETHPoolContract deploy", accounts => {
-  console.log("assert: ", assert)
-  before("should set accountsGlobal", () => {
-    accountsGlobal = accounts;
+  
+  var ethPoolInstance;
+  var owner = accounts[0];
+  var notOwner = accounts[1];
+  
+  beforeEach("Should create contract instance.", async () => {
+      ethPoolInstance = await ETHPoolContract.deployed({from:owner});
   });
-  it("should assert true", async () => {
-    await ETHPoolContract.deployed();
-    return assert.isTrue(true);
-  });
-});
 
-describe("ETHPool inital state", () => {
-  it("Should have ETH Pool name as initial state", async () => {
-    const ethpool = await ETHPoolContract.deployed();
+  it("Should have ETH Pool name as initial state.", async () => {
     const expected = "ETH Pool";
-    const actual = await ethpool.name();
+    const actual = await ethPoolInstance.name();
     assert.equal(actual, expected, "ETH Pool");
   });
-});
 
-describe("ETHPool depositFunds", () => {
-  it("Should have 'depositFunds' method", async () => {
-    const ethpool = await ETHPoolContract.deployed();
-    const depositFunds = await ethpool.depositFunds();
+  it("Should have 'depositFunds' method.", async () => {
+    return await ethPoolInstance.depositFunds();
   })
-})
 
-describe("ETHPool depositRewards", () => {
-  it("Should have 'depositRewards' method", async () => {
-    const ethpool = await ETHPoolContract.deployed();
-    const depositRewards = await ethpool.depositRewards();
+  it("Should have 'depositRewards' method.", async () => {
+    return await ethPoolInstance.depositRewards();
   })
-})
 
-describe("ETHPool withdrawFunds", () => {
-  it("Should have 'withdrawFunds' method", async () => {
-    const ethpool = await ETHPoolContract.deployed();
-    const withdrawFunds = await ethpool.withdrawFunds();
+  it("Should have 'withdrawFunds' method.", async () => {
+    return await ethPoolInstance.withdrawFunds();
   })
-})
 
-describe("ETHPool is Ownable", () => {
-  it("Should have owner", async () => {
-    const ethpool = await ETHPoolContract.deployed();
-    const owner = await ethpool.owner();
+  it("Should have owner.", async () => {
+    const owner = await ethPoolInstance.owner();
   })
-})
 
-describe("ETHPool owner account", () => {
-  it("Owner should match deployer account", async () => {
-    const ethpool = await ETHPoolContract.deployed();
-    const owner = await ethpool.owner();
-    assert.equal(owner, accountsGlobal[0])
+  it("Should match owner with deployer account.", async () => {
+    assert.equal(owner, await ethPoolInstance.owner())
   })
-})
 
-describe('ETHPool depositRewards onlyOwner', () => {
-  beforeEach(async () => {
-    ethpool = await ETHPoolContract.deployed();
-  });
-
-  it("Non owners shouldn't be able to add rewards", async () => {
-    try{
-      const res = await ethpool.depositRewards({ from: accountsGlobal[1] });
-      console.log(res)
-    }catch(error){
-      assert.isTrue(error.data.stack.includes("revert"))
-    }
+  it("Should restrict add rewards to non owners.", async () => {
+      await truffleAssert.reverts(ethPoolInstance.depositRewards({ from: notOwner }));
   })
   
-  it('Owner should be able to add rewards', async () => {
-    await ethpool.depositRewards({ from: accountsGlobal[0] }); 
+  it('Should allow owner to add rewards.', async () => {
+    await truffleAssert.passes(ethPoolInstance.depositRewards({ from: owner })); 
   })
-})
+
+});
